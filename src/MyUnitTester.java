@@ -1,16 +1,9 @@
-import View.GUIBuilder;
-import javax.swing.*;
+import Controller.Controller;
 
 public class MyUnitTester {
 
-    public static void main(String args[]){
+    public static void main(String args[]) {
 
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                GUIBuilder gui=new GUIBuilder("MyUnitTester");
-                gui.show();
-            }});
+        Controller controller = new Controller();
     }
 }

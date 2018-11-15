@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Runs test methods and creates an ArrayList of test results.
  *
  * @author Martin Sjölund
- * @version 1
+ * @version 2
  * @since 2018-11-14
  */
 public class MethodRunner {
@@ -38,35 +38,20 @@ public class MethodRunner {
         try {
 
             Object obj = aClass.getConstructor().newInstance();
-            Method setUp;
-            Method tearDown;
-
-            try{
-                setUp = obj.getClass().getMethod("setUp");
-
-            }catch (NoSuchMethodException e){
-                setUp = null;
-            }
-
-            try{
-                tearDown = obj.getClass().getMethod("tearDown");
-
-            }catch (NoSuchMethodException e){
-                tearDown = null;
-            }
+            Method setUp = getSetUpMethod(obj);
+            Method tearDown = getTearDownMethod(obj);
 
             for (int i = 0; i < methodList.size(); i++){
                 ArrayList<String> result = new ArrayList<>();
                 Method me = methodList.get(i);
 
-                //If setUp method exists
-                if (setUp != null) {
+                result.add(me.getName()); /*Name of Method*/
+
+                if (setUp != null) { /*If setup method exist*/
                     setUp.invoke(obj);
                 }
 
                 try {
-
-                    result.add(me.getName());
                     result.add(me.invoke(obj).toString());
                     testResults.add(result);
 
@@ -76,28 +61,50 @@ public class MethodRunner {
                     testResults.add(result);
                 }
 
-                //if tearDown method exists
-                if(tearDown != null) {
+                if(tearDown != null) { /*if tearDown method exists*/
                     tearDown.invoke(obj);
                 }
             }
 
-        }catch (NoSuchMethodException e){
-            e.getStackTrace();
-        }
-        catch (IllegalAccessException e){
-            e.getStackTrace();
-        }
-        catch (InstantiationException e){
-            e.getStackTrace();
-        }
-        catch (InvocationTargetException e){
+        }catch (NoSuchMethodException | IllegalAccessException |
+                InstantiationException | InvocationTargetException e) {
             e.getStackTrace();
         }
     }
 
     /**
+     * Returns setUp method from an object of it exists.
      *
+     * @param obj Object to search.
+     * @return setUp method. Null if it does not exist.
+     */
+    private Method getSetUpMethod(Object obj){
+
+        try{
+            return obj.getClass().getMethod("setUp");
+
+        }catch (NoSuchMethodException e){
+            return null;
+        }
+    }
+
+    /**
+     * Returns tearDown method from an object of it exists.
+     *
+     * @param obj Object to search.
+     * @return tearDown method. Null if it does not exist.
+     */
+    private Method getTearDownMethod(Object obj){
+
+        try{
+            return obj.getClass().getMethod("tearDown");
+
+        }catch (NoSuchMethodException e){
+            return null;
+        }
+    }
+
+    /**
      * @return An ArrayList of test results.
      */
     public ArrayList getResults(){

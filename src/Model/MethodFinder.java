@@ -8,28 +8,25 @@ import java.util.ArrayList;
  * of methods.
  *
  * @author Martin Sjölund
- * @version 1
+ * @version 2
  * @since 2018-11-14
  */
 public class MethodFinder {
 
-    private Class<?> myClass;
     private ArrayList<Method> methodList;
 
     /**
      * Constructor of class.
      *
-     * @param aClass
+     * @param aClass class to search methods in.
      */
     public MethodFinder(Class aClass) {
 
-        myClass = aClass;
-
-        if (myClass != null) {
-            methodList = findTestMethods(myClass.getMethods());
+        if (aClass != null) {
+            methodList = findTestMethods(aClass.getMethods());
         }
         else{
-            System.out.println("no class");
+            System.out.println("No class");
         }
     }
 
@@ -40,7 +37,7 @@ public class MethodFinder {
      * @return An ArrayList of methods beginning with "test".
      */
     private ArrayList findTestMethods(Method[] methods){
-        methodList = new ArrayList<Method>();
+        methodList = new ArrayList<>();
 
         if(methods.length != 0) {
             for (int i = 0; i < methods.length; i++) {
@@ -53,7 +50,6 @@ public class MethodFinder {
     }
 
     /**
-     *
      * @return The ArrayList of methods beginning with "test".
      */
     public ArrayList getMethodList(){

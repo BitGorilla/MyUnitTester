@@ -1,34 +1,34 @@
 package View;
 
-import Controller.ButtonController;
-import Controller.ClearController;
-
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * Builds GUI for testing classes that implements TestClass.
  *
  * @author Martin Sjölund
- * @version 1
+ * @version 2
  * @since 2018-11-14
  */
 public class GUIBuilder {
 
     private JFrame frame;
     private JButton runBtn;
-    private JButton clearBtn;
     private JTextField textField;
     private JTextArea textArea;
+    private ActionListener buttonListener;
 
     /**
      * Constructor of class.
      * Creates a JFrame and adds JPanels' to it.
      *
      * @param title Sets the title of a JFrame.
+     * @param buttonListener ActionListener for JButttons'.
      */
-    public GUIBuilder(String title){
+    public GUIBuilder(String title, ActionListener buttonListener){
+        this.buttonListener = buttonListener;
 
         frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -68,7 +68,7 @@ public class GUIBuilder {
         JLabel label = new JLabel("What class do you want to test?");
         textField = new JTextField(25);
         runBtn = new JButton("Run tests");
-        runBtn.addActionListener(new ButtonController(textField, textArea));
+        runBtn.addActionListener(buttonListener);
         labelPanel.add(label);
         runPanel.add(textField);
         runPanel.add(runBtn);
@@ -90,8 +90,10 @@ public class GUIBuilder {
 
         JPanel bottomPanel = new JPanel();
 
-        clearBtn = new JButton("Clear");
-        clearBtn.addActionListener(new ClearController(textArea));
+        JButton clearBtn = new JButton("Clear");
+        clearBtn.addActionListener(buttonListener);
+        clearBtn.setActionCommand("clear");
+
         bottomPanel.add(clearBtn);
 
 
@@ -123,5 +125,29 @@ public class GUIBuilder {
      */
     public void show(){
         frame.setVisible(true);
+    }
+
+    /**
+     *
+     * @return the text in JTextField.
+     */
+    public String getClassName(){
+        return textField.getText();
+    }
+
+    /**
+     * Writes to JTextArea.
+     *
+     * @param s String for output.
+     */
+    public void writeToTextArea(String s){
+        textArea.append(s);
+    }
+
+    /**
+     * Removes all text in JTextArea.
+     */
+    public void clearTextArea(){
+        textArea.setText("");
     }
 }
