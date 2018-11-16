@@ -50,12 +50,7 @@ public class Model {
         try{
             obj = aClass.getConstructor().newInstance();
 
-            if (obj instanceof se.umu.cs.unittest.TestClass){
-                return true;
-            }
-            else{
-                return false;
-            }
+            return (obj instanceof se.umu.cs.unittest.TestClass);
 
         }catch (NoSuchMethodException | InstantiationException |
                 IllegalAccessException e){

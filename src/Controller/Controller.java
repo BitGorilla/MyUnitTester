@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Link between
+ * Link between Model and View. Handles communication between the classes.
  *
  * @author Martin Sjölund
  * @version 1
