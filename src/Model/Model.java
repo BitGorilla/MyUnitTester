@@ -30,7 +30,12 @@ public class Model {
 
                 MethodFinder finder = new MethodFinder(cl);
                 MethodRunner runner = new MethodRunner(finder.getMethodList(), cl);
-                createTestResultString(runner.getResults());
+
+                if(runner.getResults() != null) {
+                    createTestResultString(runner.getResults());
+                }else{
+                    writeErrorMsg("No test methods in class");
+                }
             }else{
                 writeErrorMsg("Class is not instance of TestClass.java");
             }

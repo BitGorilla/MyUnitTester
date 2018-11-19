@@ -109,6 +109,9 @@ public class MethodRunner {
      */
     public ArrayList getResults(){
 
-        return testResults;
+        if (testResults.size() != 0){
+            return testResults;
+        }
+        return null;
     }
 }
