@@ -28,7 +28,7 @@ public class Controller {
     }
 
     /**
-     * Builds GUI.
+     * Builds GUI in new thread.
      */
     private void buildView(){
 

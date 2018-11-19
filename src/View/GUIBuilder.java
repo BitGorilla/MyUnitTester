@@ -33,7 +33,7 @@ public class GUIBuilder {
         frame = new JFrame(title);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(700,500);
-        frame.setResizable(false);
+        frame.setMinimumSize(new Dimension(400, 400));
 
         JPanel middlePanel = buildMiddlePanel();
         JPanel bottomPanel = buildBottomPanel();
@@ -66,7 +66,7 @@ public class GUIBuilder {
         topPanel.setBorder(padding);
 
         JLabel label = new JLabel("What class do you want to test?");
-        textField = new JTextField(25);
+        textField = new JTextField(15);
         runBtn = new JButton("Run tests");
         runBtn.addActionListener(buttonListener);
         labelPanel.add(label);
@@ -95,8 +95,6 @@ public class GUIBuilder {
         clearBtn.setActionCommand("clear");
 
         bottomPanel.add(clearBtn);
-
-
 
         return bottomPanel;
     }
