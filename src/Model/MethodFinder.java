@@ -31,7 +31,8 @@ public class MethodFinder {
     }
 
     /**
-     * Searches class for methods beginning with "test".
+     * Searches class for methods that takes to parameters and beginning with
+     * "test".
      *
      * @param methods Array with all the methods in a class.
      * @return An ArrayList of methods beginning with "test".
@@ -42,7 +43,9 @@ public class MethodFinder {
         if(methods.length != 0) {
             for (int i = 0; i < methods.length; i++) {
                 if (methods[i].getName().startsWith("test")){
-                    methodList.add(methods[i]);
+                    if (methods[i].getParameterCount() == 0) {
+                        methodList.add(methods[i]);
+                    }
                 }
             }
         }

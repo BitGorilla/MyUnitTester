@@ -14,7 +14,6 @@ public class Test4 implements TestClass {
         return myString.getString().equals("Hello world!");
     }
 
-
     //test should succeed
     public boolean testEmptyString(){
         myString = new MyString("Hello world!");
@@ -36,5 +35,10 @@ public class Test4 implements TestClass {
         return myString.getString().equals("Goodbye");
     }
 
+    //test should not be read.
+    public boolean testInitalization(String s){
+        myString = new MyString(s);
+        return myString.getString().equals("Hello world!");
+    }
 
 }
